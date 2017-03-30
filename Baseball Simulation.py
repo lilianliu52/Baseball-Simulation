@@ -4,9 +4,9 @@ import numpy as np
 
 # ------------------------------Parameters-----------------------------------
 # User inputs
-velocityVector = vector(50,0,0) # input initial velocity of ball
-angularVelocityVector = vector(1, 0, 0)
-frequency=100
+velocityVector = vector(80,80,20) # input initial velocity of ball
+angularVelocityVector = vector(0, 0, 0)
+frequency=0
 
 
 # Constant parameters
@@ -28,14 +28,14 @@ angularVelocityVector=vector(angularVelocityVector[0]*angularVelocityVectorMag,
 #----------------------------Interface-----------------------------------------------
 # Set up the display window
 scenel= display(title= "Baseball Simulation",
-	x=0, y=0, width=1000, height=1000, 
-	range=5, backgound=color.black, 
-	center= (0, 0.8, 0))
+	x=0, y=0, width=1000, height=500, 
+	range=200, backgound=color.black, 
+	center= (100, 0, 100))
 
 #create our objects 
-ball = sphere(pos=(-2, 1, -2), radius=R, color= color.white, make_trail=true)
-floor= box(pos=(0, 0, 0), size=(20, 0.01, 20), color=color.green)
-
+ball = sphere(pos=(0, 0, 0), radius=R*100, color= color.white, make_trail=true)
+floor= box(pos=(80, 0, 80), size=(200, 0.01, 200), color=color.green)
+positionVector=ball.pos
 #----------------------------Functions----------------------------------------------
 #function to compute acceleration given velocity
 def acceleration(v,Cd,rho,A,m,g,Dm,w):
@@ -55,11 +55,13 @@ def acceleration(v,Cd,rho,A,m,g,Dm,w):
 #This loop puts it in to motion 
 while True:
 
-		rate(1000) # speeds it up 
+		rate(10000) # speeds it up 
 		accelerationVector= acceleration(velocityVector,Cd,rho,A,m,g,Dm,angularVelocityVector)
 		MidvelocityVector=velocityVector+accelerationVector*dt/2
 		MidAccelerationVector=acceleration(MidvelocityVector,Cd,rho,A,m,g,Dm,angularVelocityVector)
-		ball.pos=ball.pos+MidvelocityVector*dt
+		positionVector=positionVector+MidvelocityVector*dt
+
+		ball.pos=vector(positionVector[0],positionVector[2],positionVector[1])
 		velocityVector=velocityVector+MidAccelerationVector*dt
 
 		print(ball.pos)
