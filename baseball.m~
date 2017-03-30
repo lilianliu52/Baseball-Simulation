@@ -1,12 +1,11 @@
 %PHYS350
 
-%Simulation of baseball trajectory including drag, and Magnus forces.
-%Home plate is 60ft from pitchers mound. 
+%Simulation of baseball trajectory including drag, and Magnus forces. Home
+%plate is 60ft from pitchers mound. 
 
-%Run from MatLab; requires input from MatLab console. 
+%Intended to be run from MatLab; requires input from MatLab console. 
 
-%Uses Runge-Kutta 2nd Order approximation method for the ODE. 
-%More info at http://en.wikipedia.org/wiki/Runge?Kutta_methods
+%Uses Runge-Kutta 2nd Order approximation method for the ODE. More info at http://en.wikipedia.org/wiki/Runge?Kutta_methods
 
 clear all; close all;  
 
@@ -37,7 +36,7 @@ v = [vx0 vy0 vz0];                                 % make velocity vector
 v0 = v;
 wMag = freq*2*pi;
 w = wMag*wHat;                                     % make ang velocity vector from magnitude and unit vector
-w0 = 0*wHat;                                       % 0 angular velocity for 0 spin plot
+w0 = 0*wHat;                                       % 0 angular velocity for 
 
 rkeep = zeros(N,3);        % store baseball positions in this Nx3 array
 rkeep0 = zeros(N,3);       % where first column has x position vs. time
@@ -75,10 +74,9 @@ end
 rkeep = rkeep*3.2808;
 rkeep0 = rkeep0*3.2808;
 
-%create stem plot of spin trajectory
+%creating stem plot to visualize trajectory
 stem3(rkeep(1:200:end,1),rkeep(1:200:end,2),rkeep(1:200:end,3),'LineWidth',.1);
 hold on
-%create stem plot of 0 spin trajectory
 stem3(rkeep0(1:200:end,1),rkeep0(1:200:end,2),rkeep0(1:200:end,3),'LineWidth',.1);
 hold on
 axis([0 60 -5 5 0 8]);
