@@ -1,6 +1,10 @@
 # Baseball-Simulation
 Python Baseball Simulation (vPython)
 
-Team Memebers: Lilian Liu, Jenny Yang, Jamie Ye, Dylan Whitney
+Created for UBC Physics 350 Final Project- April 2017
 
-Created from UBC Physics 350 Final Project- April 2017
+Team Memebers: 
+          Lilian Liu, 
+          Jenny Yang, 
+          Jamie Ye, 
+          Dylan Whitney
