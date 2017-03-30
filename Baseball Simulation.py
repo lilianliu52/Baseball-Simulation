@@ -4,8 +4,11 @@ import numpy as np
 
 # ------------------------------Parameters-----------------------------------
 # User inputs
-velocityVector = vector(50,50,10) # input initial velocity of ball
-angularVelocityVector = vector(1, 1, 0)
+velocityVector = vector(50,0,0) # input initial velocity of ball
+angularVelocityVector = vector(1, 0, 0)
+frequency=100
+
+
 # Constant parameters
 dt = .0001                # time step 
 g  = 9.81                 # acceleration due to gravity in m/s^2
@@ -18,7 +21,10 @@ A  = pi*(R**2)            # baseball cross-sectional area in m^2
 Dm = .00065               # coefficient for Magnus force 
 t  = np.linspace(0,dt,5)  # vector of times
 N  = np.vectorize(t)      # number of time steps
-
+angularVelocityVectorMag=frequency*2*pi
+angularVelocityVector=vector(angularVelocityVector[0]*angularVelocityVectorMag,
+	angularVelocityVector[1]*angularVelocityVectorMag,
+	angularVelocityVector[2]*angularVelocityVectorMag)
 #----------------------------Interface-----------------------------------------------
 # Set up the display window
 scenel= display(title= "Baseball Simulation",
@@ -27,8 +33,8 @@ scenel= display(title= "Baseball Simulation",
 	center= (0, 0.8, 0))
 
 #create our objects 
-ball = sphere(pos=(2, 1, 2), radius=R, color= color.white, make_trail=true)
-floor= box(pos=(0, 0, 0), size=(5, 0.01, 5), color=color.green)
+ball = sphere(pos=(-2, 1, -2), radius=R, color= color.white, make_trail=true)
+floor= box(pos=(0, 0, 0), size=(20, 0.01, 20), color=color.green)
 
 #----------------------------Functions----------------------------------------------
 #function to compute acceleration given velocity
@@ -44,18 +50,21 @@ def acceleration(v,Cd,rho,A,m,g,Dm,w):
 	accel = vector(ForceVector[0]/m,ForceVector[1]/m,ForceVector[2]/m)
 
 	return accel
-#---------------------------Algorithm------------------------------------------------------------
-
-accelerationVector= acceleration(velocityVector,Cd,rho,A,m,g,Dm,angularVelocityVector)
+#---------------------------Algorithm--------s----------------------------------------------------
 
 #This loop puts it in to motion 
 while True:
-		rate(10) # speeds it up 
-		velocityVector=velocityVector+accelerationVector
-		ball.pos+=velocityVector*dt
+
+		rate(1000) # speeds it up 
+		accelerationVector= acceleration(velocityVector,Cd,rho,A,m,g,Dm,angularVelocityVector)
+		MidvelocityVector=velocityVector+accelerationVector*dt/2
+		MidAccelerationVector=acceleration(MidvelocityVector,Cd,rho,A,m,g,Dm,angularVelocityVector)
+		ball.pos=ball.pos+MidvelocityVector*dt
+		velocityVector=velocityVector+MidAccelerationVector*dt
+
 		print(ball.pos)
 		if ball.y<0: # when ball hits the ground...
-			print "ball.pos=", ball1.pos, "t=" , t
+			print "ball.pos=", ball.pos, "t=" , t
 			break
 		
 		t+=dt
