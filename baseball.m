@@ -11,11 +11,11 @@
 clear all; close all;  
 
 %prompting for user to input initial conditions
-vx0f = input('Please enter initial x velocity in mph: ');
-vy0f = input('Please enter initial y velocity in mph: ');
-vz0f = input('Please enter initial z velocity in mph: ');
-wHat = input('Please enter a unit vector in the direction of the axis of rotation using [x y z] notation: ');
-freq = input('Please enter frequency of rotation in Hz: ');
+vx0f = input('Enter initial x velocity in mph: ');
+vy0f = input('Enter initial y velocity in mph: ');
+vz0f = input('Enter initial z velocity in mph: ');
+wHat = input('Enter a unit vector in the direction of the axis of rotation using [x y z] notation: ');
+freq = input('Enter frequency of rotation in Hz: ');
 
 dt = .0001;                % time step for Runge-Kutta algorithm
 g  = 9.81;                 % acceleration due to gravity in m/s^2
@@ -29,7 +29,7 @@ Dm = .00065;               % coefficient for Magnus force
 t  = 0:dt:5;               % vector of times
 N  = length(t);            % number of time steps
 
-x0 = 0;   y0 = -.6;  z0 = 2.1336;                  % set initial position at origin in feet
+x0 = 0;   y0 = 0;  z0 = 2.1336;                  % set initial position at origin in feet
 vx0 = vx0f*.447; vy0 = vy0f*.447; vz0 = vz0f*.447; % set initial velocity in m/s
 r = [x0 y0 z0];                                    % make position vector
 r0 = r;
@@ -81,7 +81,7 @@ hold on
 %create stem plot of 0 spin trajectory
 stem3(rkeep0(1:200:end,1),rkeep0(1:200:end,2),rkeep0(1:200:end,3),'LineWidth',.1);
 hold on
-axis([0 60 -5 5 0 8]);
+axis([0 60 -5 5 0 10]);
 view(120,20);
 xlabel('Distance from Plate (ft)');
 zlabel('Height of Pitcher (ft)');
