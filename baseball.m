@@ -1,7 +1,7 @@
 %PHYS350
 
 %Simulation of baseball trajectory including drag, and Magnus forces.
-%Home plate is 60ft from pitchers mound. 
+%Home plate is 60ft from pitcher. 
 
 %Run from MatLab; requires input from MatLab console. 
 
@@ -10,7 +10,7 @@
 
 clear all; close all;  
 
-%prompting for user to input initial conditions
+%prompt for user to input initial conditions
 vx0f = input('Enter initial x velocity in mph: ');
 vy0f = input('Enter initial y velocity in mph: ');
 vz0f = input('Enter initial z velocity in mph: ');
@@ -29,7 +29,7 @@ Dm = .00065;               % coefficient for Magnus force
 t  = 0:dt:5;               % vector of times
 N  = length(t);            % number of time steps
 
-x0 = 0;   y0 = 0;  z0 = 2.1336;                  % set initial position at origin in feet
+x0 = 0;   y0 = 0;  z0 = 2.1336;                    % set initial position at origin in feet
 vx0 = vx0f*.447; vy0 = vy0f*.447; vz0 = vz0f*.447; % set initial velocity in m/s
 r = [x0 y0 z0];                                    % make position vector
 r0 = r;
@@ -46,9 +46,9 @@ rkeep0 = zeros(N,3);       % where first column has x position vs. time
 %Runge-Kutta loop
 for i=1:N
    
-   a = accel(v,Cd,rho,A,m,g,Dm,w);  % find acceleration from current pos, vel
+   a = accel(v,Cd,rho,A,m,g,Dm,w);       % find acceleration from current pos, vel
    
-   vmid = v + a*dt/2;            % find velocity at midpoint
+   vmid = v + a*dt/2;                    % find velocity at midpoint
    amid = accel(vmid,Cd,rho,A,m,g,Dm,w); % accel at midpoint depends on vmid
    
    r = r + vmid*dt;
@@ -60,9 +60,9 @@ end
 %Runge-Kutta loop (0 spin)
 for i=1:N
    
-   a0 = accel(v0,Cd,rho,A,m,g,Dm,w0);  % find acceleration from current pos, vel
+   a0 = accel(v0,Cd,rho,A,m,g,Dm,w0);       % find acceleration from current pos, vel
    
-   vmid0 = v0 + a0*dt/2;            % find velocity at midpoint
+   vmid0 = v0 + a0*dt/2;                    % find velocity at midpoint
    amid0 = accel(vmid0,Cd,rho,A,m,g,Dm,w0); % accel at midpoint depends on vmid
    
    r0 = r0 + vmid0*dt;
